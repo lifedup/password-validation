@@ -67,31 +67,31 @@ const hasSequential = async (value: string, max = 4)=> {
  */
 export const ValidatePassword = async (value: string, min = 10, max = 255, threshold = 30) =>{
     const length = value.length;
+    //most likley first
+    //then more resouce intensive last rules should be last.
+    if(length < min){
+        return 'Too short error'
+    }
     if(length > threshold){
         return false
     };
-    if(length > max ){
-        return `That's one strong password, but to be it's a ${length - max + 1} characters too long.`
+    if(max && length > max ){
+        return 'Too long error'
     }
-    const message = "Try joining a few words together that only mean something to you.";
-    if(length < min){
-        return `Keep on typing, you need at least ${length - min + 1} more characters. ${message}`
-    }
+    //dont define until we need it
     const slidingMax = Math.ceil(length/4);
     if(await hasSequential(value, slidingMax)){
-        return `To help protect your privacy, you cannot use that keyboard sequence because it is one of the most used passwords. ${message}`
+        return 'Sliding sequence error'
     }
     if(await hasRepeating(value, slidingMax )){
-        return `To help protect your privacy, you cannot repeat the same character that many times in a row. The longer your passphrase is the less strict this rule gets. ${message}`
+        return 'Sliding repeating error'
     }
-    if(await hasBlackListedWord(value, "password")){
-        return `We love your simplicity and direct nature, but, in order to protect your privacy, you cannot use any variation of the word "password". The longer your passphrase is the less strict this rule gets. ${message}`
+    //iloveu will also match iloveyou however not the other way around
+    if(await hasBlackListedWords(value, ["password", "iloveu"])){
+        return 'Blacklisted words error'
     }
-    if(await hasBlackListedWord(value, "lifedup")){
-        return `We are humbled, but you cannot use any variation of the word "lifedup" in your password. ${message}`;
-    }
-    if(await hasBlackListedWords(value, ["iloveu", "iloveyou"])){
-        return `We love you too...but really it's not you it's us. In order to help protect your privacy, you cannot use any variation of the word "iloveyou" in your password. ${message}`;
+    if(await hasBlackListedWord(value, "appname")){
+        return 'Blacklisted word';
     }
     return false;
 }

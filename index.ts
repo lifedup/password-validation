@@ -68,7 +68,7 @@ const hasSequential = async (value: string, max = 4)=> {
 export const ValidatePassword = async (value: string, min = 10, max = 255, threshold = 30) =>{
     const length = value.length;
     //most likley first
-    //then more resouce intensive last rules should be last.
+    //more resouce intensive rules should be last.
     if(length < min){
         return 'Too short error'
     }

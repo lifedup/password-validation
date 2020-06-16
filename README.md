@@ -1,4 +1,4 @@
-# password-validation
+# Password validation
 Typescript password validation functions
 
 This will be turned into a package one day. 

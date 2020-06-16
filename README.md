@@ -21,7 +21,7 @@ This is to prevent very common words from being used, at a minimum {your app nam
 
 Disallow sequential characters on a **user defined** sliding scale.
 
-> Example 
+**Example** 
 
 > 10 character password can have max of 3 sequential characters.
 
@@ -31,8 +31,9 @@ Disallow sequential characters on a **user defined** sliding scale.
 
 Disallow repeating characters on a **user defined** sliding scale.
 
-> Example 
+**Example**
 > 10 character password can have max of 3 similar characters.
+
 > 20 character password can have a max of 5 similar characters.
 
 ## Min & max

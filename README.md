@@ -1,9 +1,7 @@
 # Password validation
-Typescript password validation functions
+Typescript password validation functions that will be turned into a package one day. 
 
-This will be turned into a package one day. 
-
-This is to promote harder to breach and easier to remember passwords.  This create very strict and easy to follow validation rules.  Most users won't even know the majority of the rules.
+Promote harder to breach and easier to remember passwords.  Create very strict but easy to follow validation rules that most users won't even know the depth of the rules.
 
 ## Threshold
 

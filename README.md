@@ -3,6 +3,8 @@ Typescript password validation functions that will be turned into a package one 
 
 Promote harder to breach and easier to remember passwords.  Create very strict but easy to follow validation rules that most users won't even know the depth of the rules.
 
+This should be throttled as there are some resouce intensive options.
+
 ## Threshold
 
 Set threshold to disregard validation. This is because after a certain point, the password is so long that it is very difficult to guess.

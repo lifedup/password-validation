@@ -1,5 +1,6 @@
+
 # Password validation
-Typescript password validation functions that will be turned into a package one day. 
+Non-standard but needed typescript password validation functions. 
 
 Promote harder to breach and easier to remember passwords.  Create very strict but easy to follow validation rules that most users won't even know the depth of the rules.
 
@@ -36,6 +37,58 @@ Disallow repeating characters on a **user defined** sliding scale.
 
 > 20 character password can have a max of 5 similar characters.
 
-## Min & max
+## Example Usage
+```
+/**
+ *
+ * @param value - the password
+ * @param min - Min password length
+ * @param threshold - when to stop checking rules
+ *
+ * Password cannot repeat too many of the same characters
+ * Password cannot contain common keyboard sequences
+ * Password cannot contain any variation of the word password or iloveyou
+ * the longer the password the less strict the rules are
+ *
+ */
+/**
+ *
+ * Password cannot repeat too many of the same characters
+ * Password cannot contain common keyboard sequences
+ * Password cannot contain any variation of the word password or iloveyou
+ * the longer the password the less strict the rules are
+ *
+ */
+const validatePassword = (
+  value: string,
 
-Set minimum and maximum (optional) password lengths.
+): false | string => {
+  const { length } = value;
+  // most likely first
+  // more resource intensive rules should be last.
+  if (length < 8) {
+    return 'Too short error';
+  }
+  // password is over 30 chars - don't care what it is
+  if (length > 30) {
+    return false;
+  }
+
+  // Divide length by 4 and round down to slide the limit
+  const slidingMax = Math.ceil(length / 4);
+  if (hasSequential(value, slidingMax)) {
+    return 'Sliding sequence error';
+  }
+  if (hasRepeating(value, slidingMax)) {
+    return 'Sliding repeating error';
+  }
+  // iloveu will also match iloveyou however not the other way around
+  if (hasBlackListedWords(value, ['password', 'iloveu'])) {
+    return 'Blacklisted words error';
+  }
+  if (hasBlackListedWord(value, 'myappname')) {
+    return 'Blacklisted word';
+  }
+  return false;
+};
+```

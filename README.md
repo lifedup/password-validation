@@ -37,38 +37,25 @@ Disallow repeating characters on a **user defined** sliding scale.
 
 > 20 character password can have a max of 5 similar characters.
 
-## Example Usage
+## Example Usage of Each Rule
 ```
 /**
  *
- * @param value - the password
- * @param min - Min password length
- * @param threshold - when to stop checking rules
- *
  * Password cannot repeat too many of the same characters
  * Password cannot contain common keyboard sequences
  * Password cannot contain any variation of the word password or iloveyou
  * the longer the password the less strict the rules are
  *
  */
-/**
- *
- * Password cannot repeat too many of the same characters
- * Password cannot contain common keyboard sequences
- * Password cannot contain any variation of the word password or iloveyou
- * the longer the password the less strict the rules are
- *
- */
-const validatePassword = (
-  value: string,
-
-): false | string => {
+const validatePassword = (value: string): false | string => {
   const { length } = value;
+  
   // most likely first
   // more resource intensive rules should be last.
   if (length < 8) {
     return 'Too short error';
   }
+  
   // password is over 30 chars - don't care what it is
   if (length > 30) {
     return false;
@@ -79,9 +66,11 @@ const validatePassword = (
   if (hasSequential(value, slidingMax)) {
     return 'Sliding sequence error';
   }
+  
   if (hasRepeating(value, slidingMax)) {
     return 'Sliding repeating error';
   }
+  
   // iloveu will also match iloveyou however not the other way around
   if (hasBlackListedWords(value, ['password', 'iloveu'])) {
     return 'Blacklisted words error';
@@ -89,6 +78,7 @@ const validatePassword = (
   if (hasBlackListedWord(value, 'myappname')) {
     return 'Blacklisted word';
   }
+  // no errors
   return false;
 };
 ```
